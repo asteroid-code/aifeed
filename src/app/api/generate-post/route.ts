@@ -250,7 +250,7 @@ async function generateFreeAIPost(topic: string) {
       }
       
       // Intentar extraer JSON
-      let jsonMatch = response.match(/\{[\s\S]*\}/);
+      const jsonMatch = response.match(/\{[\s\S]*\}/);
       
       if (!jsonMatch && selectedProvider.name.includes('huggingface')) {
         // Para HuggingFace, crear JSON manualmente si no viene en formato JSON
