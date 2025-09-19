@@ -8,11 +8,11 @@ on:
 jobs:
   generate-post:
     runs-on: ubuntu-latest
-
+    
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
-
+        uses: actions/checkout@v4
+        
       - name: Call API to generate post
         run: |
           echo "Llamando a la API para generar un post..."
@@ -26,7 +26,7 @@ jobs:
           echo "$RESPONSE" > post_response.json
           
       - name: Upload API response as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: api-response
           path: post_response.json
