@@ -1,7 +1,6 @@
 "use client";
 import CreatePostForm from "@/components/CreatePostForm";
 import { supabase } from "@/lib/supabaseClient";
-
 import { useEffect, useState } from "react";
 
 type Post = {
@@ -58,19 +57,6 @@ export default function Page() {
     <main className="p-6">
       <h1 className="text-3xl font-bold mb-4">📰 AI Feed</h1>
 
-      {/* BOTÓN DE PRUEBA PARA LA IA */}
-      <button
-        onClick={async () => {
-          alert('Enviando petición a la IA... esto puede tardar unos segundos.');
-          const response = await fetch('/api/generate-post', { method: 'POST' });
-          const data = await response.json();
-          alert('Respuesta de la IA:\n' + JSON.stringify(data, null, 2));
-        }}
-        className="mb-6 px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700"
-      >
-        ✨ Generar Post de Prueba con IA
-      </button>
-      
       <CreatePostForm onPostCreated={fetchPosts} />
 
       {loading && <p>Cargando posts...</p>}
