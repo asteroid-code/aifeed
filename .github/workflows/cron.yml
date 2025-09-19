@@ -1,0 +1,32 @@
+name: Generate Daily Post
+
+on:
+  schedule:
+    - cron: "0 6 * * *" # Todos los días a las 06:00 UTC
+  workflow_dispatch: # Permite ejecutarlo manualmente
+
+jobs:
+  generate-post:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Call API to generate post
+        run: |
+          echo "Llamando a la API para generar un post..."
+          RESPONSE=$(curl -s -X POST "https://aifeed-ten.vercel.app/api/generate-post" \
+            -H "Content-Type: application/json")
+          
+          echo "Respuesta de la API:"
+          echo "$RESPONSE"
+          
+          # Guardar respuesta en archivo JSON
+          echo "$RESPONSE" > post_response.json
+          
+      - name: Upload API response as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: api-response
+          path: post_response.json
